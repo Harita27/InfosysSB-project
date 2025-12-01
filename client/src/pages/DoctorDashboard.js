@@ -5,7 +5,6 @@ import './Dashboard.css';
 
 const DoctorDashboard = () => {
   const [activeTab, setActiveTab] = useState('profile');
-  const [profile, setProfile] = useState(null);
   const [patients, setPatients] = useState([]);
   const [appointments, setAppointments] = useState([]);
   const [medicalRecords, setMedicalRecords] = useState([]);
