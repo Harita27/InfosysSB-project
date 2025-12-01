@@ -5,6 +5,8 @@ import './Dashboard.css';
 
 const DoctorDashboard = () => {
   const [activeTab, setActiveTab] = useState('profile');
+  // eslint-disable-next-line no-unused-vars
+  const [profile, setProfile] = useState(null);
   const [patients, setPatients] = useState([]);
   const [appointments, setAppointments] = useState([]);
   const [medicalRecords, setMedicalRecords] = useState([]);
