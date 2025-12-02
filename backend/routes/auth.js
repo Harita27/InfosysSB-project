@@ -23,15 +23,17 @@ router.post('/register', async (req, res) => {
     // Hash password
     const hashedPassword = await bcrypt.hash(password, 10);
 
+    // Combine first and last name
+    const fullName = `${firstName} ${lastName}`;
+
     // Create user
     const { data: user, error: userError } = await supabase
       .from('users')
       .insert([{
+        name: fullName,
         email,
         password: hashedPassword,
         role,
-        first_name: firstName,
-        last_name: lastName,
         phone
       }])
       .select()
@@ -93,8 +95,7 @@ router.post('/register', async (req, res) => {
         id: user.id,
         email: user.email,
         role: user.role,
-        firstName: user.first_name,
-        lastName: user.last_name
+        name: user.name
       }
     });
   } catch (error) {
@@ -138,8 +139,7 @@ router.post('/login', async (req, res) => {
         id: user.id,
         email: user.email,
         role: user.role,
-        firstName: user.first_name,
-        lastName: user.last_name
+        name: user.name
       }
     });
   } catch (error) {
