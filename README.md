@@ -1,332 +1,231 @@
-# 🏥 Medical Dashboard - Healthcare Management System
+# 💊 Online Medication & Prescription Tracker
 
-A comprehensive role-based healthcare platform connecting doctors and patients through secure, feature-rich dashboards.
+> **A comprehensive healthcare management system for medication tracking, prescription management, and pharmacy inventory control**
 
-## 📋 Project Overview
+Managing medication schedules, doctor prescriptions, and pharmacy stock can be challenging. This platform connects doctors, patients, pharmacists, and administrators to ensure patients never miss a dose and pharmacies maintain proper inventory.
 
-The Medical Dashboard is a full-stack web application designed to streamline healthcare management by providing role-specific interfaces for doctors and patients. The system automatically identifies user roles upon login and redirects them to customized dashboards with relevant features and data access.
+---
 
-## ✨ Features
+## 🎯 Key Features
 
-### 🔐 Authentication System
-- Secure user registration and login
-- Role-based access control (Doctor/Patient)
-- JWT token-based authentication
-- Automatic dashboard redirection based on role
+### 🔐 **Multi-Role Authentication**
+- **4 User Roles**: Patient, Doctor, Pharmacist, Admin
+- JWT-based secure authentication
+- Role-based dashboards and permissions
 
-### 👨‍⚕️ Doctor Dashboard
-- **Profile Management**
-  - View and update license information
-  - Add/edit professional description
-  - Set consultation fees and availability
-  - Manage qualifications and experience
+### 💊 **Prescription Management**
+- Doctors issue digital prescriptions
+- Patients view and track prescriptions
+- Prescription lifecycle (pending → approved → expired)
+- Download prescriptions as PDF
 
-- **Patient Management**
-  - View assigned patients
-  - Access patient medical history
-  - Track patient symptoms and conditions
+### ⏰ **Medication Reminders**
+- Set custom reminder schedules
+- Track medication adherence
+- Mark doses as taken/missed/snoozed
+- Real-time adherence statistics
 
-- **Medical Records**
-  - Create detailed medical records
-  - Write prescriptions with multiple medications
-  - Add diagnosis and doctor notes
-  - Schedule follow-up appointments
+### 🏥 **Pharmacy Inventory**
+- Stock level management
+- Low-stock automated alerts
+- Expiry date tracking
+- Batch management and pricing
 
-- **Appointments**
-  - View all scheduled appointments
-  - Update appointment status
-  - Manage appointment notes
+### 📊 **Analytics Dashboard**
+- Patient: Adherence rates and active prescriptions
+- Doctor: Patient stats and prescription tracking
+- Pharmacist: Inventory analytics and alerts
+- Admin: System-wide statistics
 
-### 👤 Patient Dashboard
-- **Profile Management**
-  - Update personal information
-  - Set blood group and date of birth
-  - Manage allergy information
-
-- **Symptoms Tracking**
-  - Add new symptoms with severity levels
-  - View symptom history
-  - Track symptom progression
-
-- **Medical History**
-  - Maintain comprehensive medical history
-  - Record past conditions and diagnoses
-  - Add important medical notes
-
-- **Doctor Communication**
-  - Browse available doctors
-  - View doctor specializations and fees
-  - Book appointments with preferred doctors
-
-- **Medical Records Access**
-  - View prescriptions from doctors
-  - Access diagnosis and treatment plans
-  - Check follow-up appointments
-  - Review lab reports and doctor suggestions
+---
 
 ## 🛠️ Tech Stack
 
-### Backend
-- **Node.js** with Express.js
-- **Supabase (PostgreSQL)** for database
-- **Supabase JS Client** for database operations
-- **JWT** for authentication
-- **bcryptjs** for password hashing
+**Backend:** Node.js, Express.js, Supabase (PostgreSQL), JWT  
+**Frontend:** React 18, React Router, Axios, Modern Dark UI  
+**Database:** PostgreSQL with 9 interconnected tables
 
-### Frontend
-- **React** 18.x
-- **React Router** for navigation
-- **Axios** for API calls
-- **CSS3** for styling
+---
 
-## 📁 Project Structure
+## 🚀 Quick Start
 
-```
-Medical Dashboard/
-├── backend/
-│   ├── models/
-│   │   ├── User.js
-│   │   ├── Doctor.js
-│   │   ├── Patient.js
-│   │   ├── Appointment.js
-│   │   └── MedicalRecord.js
-│   ├── routes/
-│   │   ├── auth.js
-│   │   ├── doctors.js
-│   │   ├── patients.js
-│   │   ├── appointments.js
-│   │   └── medicalRecords.js
-│   ├── middleware/
-│   │   └── auth.js
-│   └── server.js
-├── client/
-│   ├── public/
-│   ├── src/
-│   │   ├── components/
-│   │   │   ├── Navbar.js
-│   │   │   └── Navbar.css
-│   │   ├── context/
-│   │   │   └── AuthContext.js
-│   │   ├── pages/
-│   │   │   ├── Login.js
-│   │   │   ├── Register.js
-│   │   │   ├── DoctorDashboard.js
-│   │   │   ├── PatientDashboard.js
-│   │   │   ├── Auth.css
-│   │   │   └── Dashboard.css
-│   │   ├── services/
-│   │   │   └── api.js
-│   │   ├── App.js
-│   │   ├── index.js
-│   │   └── index.css
-│   └── package.json
-├── .env.example
-├── .gitignore
-├── package.json
-└── README.md
-```
-
-## 🚀 Installation & Setup
-
-### Prerequisites
-- Node.js (v14 or higher)
-- Supabase account (free tier available at https://supabase.com)
-- npm or yarn
-
-### Step 1: Clone the Repository
+### 1. Clone & Install
 ```bash
-cd "Medical Dashboard"
-```
-
-### Step 2: Install Dependencies
-
-#### Backend Dependencies
-```powershell
+git clone https://github.com/Harita27/InfosysSB-project.git
+cd InfosysSB-project
 npm install
+cd client && npm install && cd ..
 ```
 
-#### Frontend Dependencies
-```powershell
-cd client
-npm install
-cd ..
-```
+### 2. Setup Supabase
+- Create project at [supabase.com](https://supabase.com)
+- Run `supabase-schema-updated.sql` in SQL Editor
+- Get URL and anon key from Settings → API
 
-### Step 3: Set Up Supabase Database
-
-1. **Create a Supabase Project:**
-   - Go to https://supabase.com
-   - Sign up / Log in
-   - Create a new project
-   - Wait for the project to be set up
-
-2. **Run the Database Schema:**
-   - Go to your Supabase Dashboard
-   - Navigate to **SQL Editor**
-   - Open the `supabase-schema.sql` file from the project root
-   - Copy the entire content and paste it into the SQL Editor
-   - Click **Run** to create all tables and relationships
-
-3. **Get Your Supabase Credentials:**
-   - Go to **Project Settings** > **API**
-   - Copy the **Project URL** (SUPABASE_URL)
-   - Copy the **anon/public key** (SUPABASE_KEY)
-
-### Step 4: Environment Configuration
-
-Create a `.env` file in the root directory:
-```bash
-cp .env.example .env
-```
-
-Edit `.env` file with your Supabase credentials:
+### 3. Configure Environment
+Create `.env` file:
 ```env
 PORT=5000
-SUPABASE_URL=https://your-project.supabase.co
-SUPABASE_KEY=your-anon-key-here
-JWT_SECRET=your_secure_jwt_secret_key_change_this
+SUPABASE_URL=your_supabase_url_here
+SUPABASE_KEY=your_supabase_anon_key_here
+JWT_SECRET=your_secret_key_here
 NODE_ENV=development
 ```
 
-### Step 5: Run the Application
-
-#### Option 1: Run Backend and Frontend Separately
-
-**Terminal 1 - Backend:**
-```powershell
+### 4. Run Application
+```bash
+# Terminal 1 - Backend
 npm run dev
-```
 
-**Terminal 2 - Frontend:**
-```powershell
+# Terminal 2 - Frontend
 cd client
 npm start
 ```
-### Step 6: Access the Application
 
-- **Frontend:** http://localhost:3000
-- **Backend API:** http://localhost:5000
-- **Health Check:** http://localhost:5000/api/health
-- **Supabase Dashboard:** https://app.supabase.com (to view your data)
+**Access:** http://localhost:3000
 
-# Start both servers (you may need to set this up with concurrently)
-npm run dev
-```
+---
 
-### Step 6: Access the Application
+## 📱 User Roles
 
-- **Frontend:** http://localhost:3000
-- **Backend API:** http://localhost:5000
-- **Health Check:** http://localhost:5000/api/health
+| Role | Key Features |
+|------|-------------|
+| 👨‍⚕️ **Doctor** | Issue prescriptions, track patient adherence, manage patient list |
+| 🧑‍🦱 **Patient** | View prescriptions, set reminders, track adherence, download PDFs |
+| 💊 **Pharmacist** | Manage inventory, stock alerts, expiry tracking, batch management |
+| 👨‍💼 **Admin** | System analytics, user management, system health monitoring |
 
-## 👥 Usage Guide
+---
 
-### For Patients
+## 🗄️ Database Schema
 
-1. **Register** as a patient with your email and password
-2. **Complete your profile** with personal information
-3. **Add symptoms** to track your health
-4. **Maintain medical history** for doctor reference
-5. **Browse doctors** and book appointments
-6. **View prescriptions** and medical records from doctors
+**Core Tables:**
+- `users` → Role-based user management
+- `doctors`, `patients`, `pharmacists` → Profile extensions
+- `prescriptions` → Doctor-patient prescription records
+- `medicines` → Medication details per prescription
+- `reminders` → Patient medication reminders
+- `inventory` → Pharmacy stock management
+- `reports` → Analytics and tracking data
 
-### For Doctors
+---
 
-1. **Register** as a doctor with license number and specialization
-2. **Update your profile** with professional information
-3. **View assigned patients** and their medical history
-4. **Manage appointments** with patients
-5. **Create medical records** with diagnoses and prescriptions
-6. **Track patient progress** and schedule follow-ups
-
-## 🔒 Security Features
-
-- Password hashing with bcrypt
-- JWT token-based authentication
-- Role-based access control
-- Protected API routes
-- Secure password validation (minimum 6 characters)
-## 📊 Database Schema (PostgreSQL via Supabase)
-
-### Tables
-- **users** - Authentication and basic user info
-- **doctors** - Doctor-specific profiles and details
-- **patients** - Patient-specific profiles and health data
-- **doctor_patients** - Many-to-many relationship between doctors and patients
-- **appointments** - Scheduled consultations
-- **medical_records** - Diagnoses, prescriptions, and reports
-
-### Key Features:
-- UUID primary keys for all tables
-- Foreign key relationships with cascade deletes
-- JSONB fields for flexible data (symptoms, prescriptions, lab reports)
-- Indexed columns for optimized queries
-- Row Level Security (RLS) enabled
-- Timestamp tracking (created_at, updated_at)
-- Professional gradient theme
-- User-friendly forms with validation
-
-## 📊 Database Schema
-
-### Collections
-- **users** - Authentication and basic user info
-- **doctors** - Doctor-specific profiles and details
-- **patients** - Patient-specific profiles and health data
-- **appointments** - Scheduled consultations
-- **medicalrecords** - Diagnoses, prescriptions, and reports
-
-## 🔗 API Endpoints
+## 📚 API Endpoints
 
 ### Authentication
-- `POST /api/auth/register` - Register new user
-- `POST /api/auth/login` - User login
+```http
+POST /api/auth/register  # Register new user
+POST /api/auth/login     # User login
+```
 
-### Doctor Routes
-- `GET /api/doctors/profile` - Get doctor profile
-- `PUT /api/doctors/profile` - Update doctor profile
-- `GET /api/doctors/patients` - Get assigned patients
-- `POST /api/doctors/patients/:id` - Add patient
+### Prescriptions
+```http
+GET    /api/prescriptions              # Get prescriptions (filtered by role)
+POST   /api/prescriptions              # Create new prescription (doctor)
+PATCH  /api/prescriptions/:id/status   # Update status
+DELETE /api/prescriptions/:id          # Delete prescription
+```
 
-### Patient Routes
-- `GET /api/patients/profile` - Get patient profile
-- `PUT /api/patients/profile` - Update patient profile
-- `POST /api/patients/symptoms` - Add symptom
-- `POST /api/patients/medical-history` - Add medical history
-- `GET /api/patients/doctors` - Get all doctors
+### Reminders & Adherence
+```http
+GET    /api/medicines/reminders        # Get user reminders
+POST   /api/medicines/reminders        # Create reminder
+PATCH  /api/medicines/reminders/:id    # Update status (taken/missed)
+GET    /api/medicines/adherence        # Get adherence stats
+```
 
-### Appointments
-- `POST /api/appointments` - Book appointment
-- `GET /api/appointments` - Get appointments
-- `PUT /api/appointments/:id` - Update appointment
+### Inventory Management
+```http
+GET    /api/inventory         # Get inventory items
+POST   /api/inventory         # Add drug to stock
+PATCH  /api/inventory/:id     # Update stock item
+DELETE /api/inventory/:id     # Remove item
+GET    /api/inventory/alerts  # Low stock alerts
+GET    /api/inventory/expired # Expired medicines
+```
 
-### Medical Records
-- `POST /api/medical-records` - Create record (Doctor only)
-- `GET /api/medical-records` - Get records
-- `GET /api/medical-records/:id` - Get single record
+### Analytics
+```http
+GET  /api/analytics/dashboard            # Role-based dashboard stats
+GET  /api/analytics/adherence/:patientId # Patient adherence report
+POST /api/analytics/save                 # Save custom report
+```
 
-## 🤝 Contributing
+---
 
-Contributions are welcome! Please feel free to submit a Pull Request.
+## 📅 Project Milestones
 
-## 📝 License
+| Week | Milestone | Status |
+|------|-----------|--------|
+| 1-2 | Authentication & Role Setup | ✅ Complete |
+| 3-4 | Prescription Management | ✅ Complete |
+| 5 | Medication Tracker & Reminders | ✅ Complete |
+| 6-7 | Pharmacy Inventory Management | ✅ Complete |
+| 8 | Analytics & Reporting | ✅ Complete |
 
-This project is licensed under the MIT License.
+---
 
-## 👨‍💻 Support
+## 🎨 UI Features
 
-For support, please open an issue in the repository or contact the development team.
+- 🌑 **Modern Dark Theme** with neon green accents
+- 📱 **Fully Responsive** design
+- 🔔 **Real-time Notifications** for reminders
+- 📊 **Data Visualization** with statistics cards
+- 🎯 **Role-based Navigation** menus
 
-## 🎯 Future Enhancements
+---
 
-- Video consultation feature
-- File upload for lab reports
-- SMS/Email notifications
-- Payment integration
-- Advanced analytics dashboard
-- Multi-language support
-- Mobile application
-- Real-time chat between doctors and patients
+## 🔒 Security
+
+✅ bcrypt password encryption  
+✅ JWT token authentication  
+✅ Role-based access control (RBAC)  
+✅ Row Level Security (RLS) policies  
+✅ Input validation & sanitization
+
+---
+
+## 📖 Documentation
+
+- `SUPABASE_SETUP.md` - Complete Supabase guide
+- `QUICKSTART.md` - 5-minute setup guide
+- `DATABASE_SCHEMA.md` - Schema visualization
+- `MIGRATION_SUMMARY.md` - Migration guide
+
+---
+
+## 🚧 Future Enhancements
+
+- [ ] Email/SMS notifications
+- [ ] PDF prescription generation
+- [ ] Drug interaction API integration
+- [ ] Mobile app (React Native)
+- [ ] Telemedicine video calls
+- [ ] Insurance integration
+- [ ] Multi-language support
+
+---
+
+## 👥 Team
+
+**Project Owner:** [Harita27](https://github.com/Harita27)  
+**Contributors:** [Divyesh-1306](https://github.com/Divyesh-1306)
+
+---
+
+## 📄 License
+
+MIT License - See LICENSE for details
+
+---
+
+## 🆘 Support
+
+**Issues:** [GitHub Issues](https://github.com/Harita27/InfosysSB-project/issues)  
+**Docs:** Check `/docs` folder
 
 ---
 
 **Built with ❤️ for better healthcare management**
+
+🌟 **Star this repo** if you found it helpful!
