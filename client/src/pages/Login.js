@@ -39,10 +39,18 @@ const Login = () => {
   return (
     <div className="auth-container">
       <div className="auth-card">
-        <div className="auth-header">
-          <h1>🏥 Medical Dashboard</h1>
-          <h2>Login to Your Account</h2>
+        <div className="step-indicator">
+          <div className="step">1 - Sign Up</div>
+          <div className="step">2 - Profile</div>
+          <div className="step active">3 - Login</div>
         </div>
+        
+        <div className="auth-header">
+          <h1>STEP 3</h1>
+          <h2>Login to Account</h2>
+        </div>
+        
+        {error && <div className="error-message">{error}</div>}
         
         <form onSubmit={handleSubmit}>
           <div className="form-group">
@@ -69,9 +77,7 @@ const Login = () => {
             />
           </div>
 
-          {error && <div className="error">{error}</div>}
-
-          <button type="submit" className="btn btn-primary auth-btn" disabled={loading}>
+          <button type="submit" className="auth-btn" disabled={loading}>
             {loading ? 'Logging in...' : 'Login'}
           </button>
         </form>

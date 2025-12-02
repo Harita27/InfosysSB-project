@@ -57,44 +57,30 @@ const Register = () => {
   return (
     <div className="auth-container">
       <div className="auth-card">
-        <div className="auth-header">
-          <h1>🏥 Medical Dashboard</h1>
-          <h2>Create Your Account</h2>
+        <div className="step-indicator">
+          <div className="step active">1 - Sign Up</div>
+          <div className="step">2 - Profile</div>
+          <div className="step">3 - Login</div>
         </div>
+        
+        <div className="auth-header">
+          <h1>STEP 1</h1>
+          <h2>Create Account</h2>
+        </div>
+        
+        {error && <div className="error-message">{error}</div>}
         
         <form onSubmit={handleSubmit}>
           <div className="form-group">
-            <label>Role</label>
-            <select name="role" value={formData.role} onChange={handleChange} required>
-              <option value="patient">Patient</option>
-              <option value="doctor">Doctor</option>
-            </select>
-          </div>
-
-          <div className="form-row">
-            <div className="form-group">
-              <label>First Name</label>
-              <input
-                type="text"
-                name="firstName"
-                value={formData.firstName}
-                onChange={handleChange}
-                required
-                placeholder="First name"
-              />
-            </div>
-
-            <div className="form-group">
-              <label>Last Name</label>
-              <input
-                type="text"
-                name="lastName"
-                value={formData.lastName}
-                onChange={handleChange}
-                required
-                placeholder="Last name"
-              />
-            </div>
+            <label>Full Name</label>
+            <input
+              type="text"
+              name="firstName"
+              value={formData.firstName}
+              onChange={handleChange}
+              required
+              placeholder="Enter your full name"
+            />
           </div>
 
           <div className="form-group">
@@ -110,43 +96,6 @@ const Register = () => {
           </div>
 
           <div className="form-group">
-            <label>Phone</label>
-            <input
-              type="tel"
-              name="phone"
-              value={formData.phone}
-              onChange={handleChange}
-              placeholder="Phone number"
-            />
-          </div>
-
-          {formData.role === 'doctor' && (
-            <>
-              <div className="form-group">
-                <label>License Number</label>
-                <input
-                  type="text"
-                  name="licenseNumber"
-                  value={formData.licenseNumber}
-                  onChange={handleChange}
-                  placeholder="Medical license number"
-                />
-              </div>
-
-              <div className="form-group">
-                <label>Specialization</label>
-                <input
-                  type="text"
-                  name="specialization"
-                  value={formData.specialization}
-                  onChange={handleChange}
-                  placeholder="e.g., Cardiology, Pediatrics"
-                />
-              </div>
-            </>
-          )}
-
-          <div className="form-group">
             <label>Password</label>
             <input
               type="password"
@@ -154,28 +103,25 @@ const Register = () => {
               value={formData.password}
               onChange={handleChange}
               required
-              minLength="6"
-              placeholder="At least 6 characters"
+              placeholder="Create a password"
             />
           </div>
 
           <div className="form-group">
-            <label>Confirm Password</label>
-            <input
-              type="password"
-              name="confirmPassword"
-              value={formData.confirmPassword}
-              onChange={handleChange}
-              required
-              placeholder="Confirm your password"
-            />
+            <label>Role</label>
+            <select name="role" value={formData.role} onChange={handleChange} required>
+              <option value="patient">Patient</option>
+              <option value="doctor">Doctor</option>
+            </select>
           </div>
 
-          {error && <div className="error">{error}</div>}
-
-          <button type="submit" className="btn btn-primary auth-btn" disabled={loading}>
-            {loading ? 'Creating Account...' : 'Register'}
+          <button type="submit" className="auth-btn" disabled={loading}>
+            {loading ? 'Creating Account...' : 'Sign Up'}
           </button>
+          
+          <p className="auth-description">
+            After sign up, you'll complete your profile based on this role (Doctor or Patient) and proceed to login.
+          </p>
         </form>
 
         <div className="auth-footer">
