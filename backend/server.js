@@ -34,10 +34,14 @@ app.use('/api/doctors', require('./routes/doctors'));
 app.use('/api/patients', require('./routes/patients'));
 app.use('/api/appointments', require('./routes/appointments'));
 app.use('/api/medical-records', require('./routes/medicalRecords'));
+app.use('/api/prescriptions', require('./routes/prescriptions'));
+app.use('/api/medicines', require('./routes/medicines'));
+app.use('/api/inventory', require('./routes/inventory'));
+app.use('/api/analytics', require('./routes/analytics'));
 
 // Health check
 app.get('/api/health', (req, res) => {
-  res.json({ status: 'OK', message: 'Medical Dashboard API is running' });
+  res.json({ status: 'OK', message: 'Online Medication & Prescription Tracker API is running' });
 });
 
 const PORT = process.env.PORT || 5000;

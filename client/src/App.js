@@ -4,6 +4,8 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import DoctorDashboard from './pages/DoctorDashboard';
 import PatientDashboard from './pages/PatientDashboard';
+import PharmacistDashboard from './pages/PharmacistDashboard';
+import AdminDashboard from './pages/AdminDashboard';
 import { AuthProvider, useAuth } from './context/AuthContext';
 
 const PrivateRoute = ({ children, role }) => {
@@ -46,6 +48,24 @@ function App() {
             element={
               <PrivateRoute role="patient">
                 <PatientDashboard />
+              </PrivateRoute>
+            } 
+          />
+
+          <Route 
+            path="/pharmacist-dashboard" 
+            element={
+              <PrivateRoute role="pharmacist">
+                <PharmacistDashboard />
+              </PrivateRoute>
+            } 
+          />
+
+          <Route 
+            path="/admin-dashboard" 
+            element={
+              <PrivateRoute role="admin">
+                <AdminDashboard />
               </PrivateRoute>
             } 
           />

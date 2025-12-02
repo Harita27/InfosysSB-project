@@ -47,8 +47,8 @@ router.post('/register', async (req, res) => {
         .from('doctors')
         .insert([{
           user_id: user.id,
-          license_number: licenseNumber,
-          specialization
+          license_number: licenseNumber || 'PENDING',
+          specialization: specialization || 'General'
         }]);
 
       if (doctorError) {
@@ -63,6 +63,19 @@ router.post('/register', async (req, res) => {
 
       if (patientError) {
         return res.status(500).json({ message: 'Error creating patient profile', error: patientError.message });
+      }
+    } else if (role === 'pharmacist') {
+      const { error: pharmacistError } = await supabase
+        .from('pharmacists')
+        .insert([{
+          user_id: user.id,
+          license_number: licenseNumber || 'PENDING',
+          pharmacy_name: 'My Pharmacy',
+          pharmacy_address: ''
+        }]);
+
+      if (pharmacistError) {
+        return res.status(500).json({ message: 'Error creating pharmacist profile', error: pharmacistError.message });
       }
     }
 
