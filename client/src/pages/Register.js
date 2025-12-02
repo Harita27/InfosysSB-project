@@ -43,9 +43,15 @@ const Register = () => {
     setLoading(false);
 
     if (result.success) {
-      const dashboardPath = result.user.role === 'doctor' 
-        ? '/doctor-dashboard' 
-        : '/patient-dashboard';
+      // Navigate based on role
+      let dashboardPath = '/patient-dashboard';
+      if (result.user.role === 'doctor') {
+        dashboardPath = '/doctor-dashboard';
+      } else if (result.user.role === 'pharmacist') {
+        dashboardPath = '/pharmacist-dashboard';
+      } else if (result.user.role === 'admin') {
+        dashboardPath = '/admin-dashboard';
+      }
       navigate(dashboardPath);
     } else {
       setError(result.message);

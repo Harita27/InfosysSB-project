@@ -9,6 +9,8 @@ router.post('/register', async (req, res) => {
   try {
     const { email, password, role, firstName, lastName, phone, licenseNumber, specialization } = req.body;
 
+    console.log('📝 Registration attempt:', { email, role, name: `${firstName} ${lastName}` });
+
     // Check if user exists
     const { data: existingUser } = await supabase
       .from('users')
@@ -17,6 +19,7 @@ router.post('/register', async (req, res) => {
       .single();
 
     if (existingUser) {
+      console.log('❌ User already exists:', email);
       return res.status(400).json({ message: 'User already exists' });
     }
 
@@ -40,8 +43,11 @@ router.post('/register', async (req, res) => {
       .single();
 
     if (userError) {
+      console.error('❌ Error creating user:', userError.message);
       return res.status(500).json({ message: 'Error creating user', error: userError.message });
     }
+
+    console.log('✅ User created successfully:', { id: user.id, email: user.email, role: user.role });
 
     // Create role-specific profile
     if (role === 'doctor') {
@@ -54,8 +60,10 @@ router.post('/register', async (req, res) => {
         }]);
 
       if (doctorError) {
+        console.error('❌ Error creating doctor profile:', doctorError.message);
         return res.status(500).json({ message: 'Error creating doctor profile', error: doctorError.message });
       }
+      console.log('✅ Doctor profile created for user:', user.id);
     } else if (role === 'patient') {
       const { error: patientError } = await supabase
         .from('patients')
@@ -64,8 +72,10 @@ router.post('/register', async (req, res) => {
         }]);
 
       if (patientError) {
+        console.error('❌ Error creating patient profile:', patientError.message);
         return res.status(500).json({ message: 'Error creating patient profile', error: patientError.message });
       }
+      console.log('✅ Patient profile created for user:', user.id);
     } else if (role === 'pharmacist') {
       const { error: pharmacistError } = await supabase
         .from('pharmacists')
@@ -77,8 +87,12 @@ router.post('/register', async (req, res) => {
         }]);
 
       if (pharmacistError) {
+        console.error('❌ Error creating pharmacist profile:', pharmacistError.message);
         return res.status(500).json({ message: 'Error creating pharmacist profile', error: pharmacistError.message });
       }
+      console.log('✅ Pharmacist profile created for user:', user.id);
+    } else if (role === 'admin') {
+      console.log('✅ Admin user created (no additional profile needed)');
     }
 
     // Generate token
@@ -87,6 +101,8 @@ router.post('/register', async (req, res) => {
       process.env.JWT_SECRET,
       { expiresIn: '7d' }
     );
+
+    console.log('✅ Registration completed successfully for:', email);
 
     res.status(201).json({
       message: 'Registration successful',
@@ -99,6 +115,7 @@ router.post('/register', async (req, res) => {
       }
     });
   } catch (error) {
+    console.error('❌ Registration error:', error.message);
     res.status(500).json({ message: 'Server error', error: error.message });
   }
 });
