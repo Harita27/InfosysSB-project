@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
 const supabase = require('../config/supabase');
 
-const auth = async (req, res, next) => {
+const authenticate = async (req, res, next) => {
   try {
     const token = req.header('Authorization')?.replace('Bearer ', '');
     
@@ -21,8 +21,12 @@ const auth = async (req, res, next) => {
       return res.status(401).json({ message: 'User not found' });
     }
 
-    req.user = user;
-    req.userId = user.id;
+    req.user = {
+      userId: user.id,
+      email: user.email,
+      role: user.role,
+      name: user.name
+    };
     next();
   } catch (error) {
     res.status(401).json({ message: 'Invalid authentication token' });
@@ -40,4 +44,7 @@ const authorize = (...roles) => {
   };
 };
 
-module.exports = { auth, authorize };
+// Keep backward compatibility
+const auth = authenticate;
+
+module.exports = { authenticate, authorize, auth };
