@@ -11,9 +11,7 @@ const Register = () => {
     role: 'patient',
     firstName: '',
     lastName: '',
-    phone: '',
-    licenseNumber: '',
-    specialization: ''
+    phone: ''
   });
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
@@ -33,8 +31,8 @@ const Register = () => {
       return;
     }
 
-    if (formData.role === 'doctor' && (!formData.licenseNumber || !formData.specialization)) {
-      setError('License number and specialization are required for doctors');
+    if (formData.password.length < 6) {
+      setError('Password must be at least 6 characters');
       return;
     }
 
@@ -72,14 +70,26 @@ const Register = () => {
         
         <form onSubmit={handleSubmit}>
           <div className="form-group">
-            <label>Full Name</label>
+            <label>First Name</label>
             <input
               type="text"
               name="firstName"
               value={formData.firstName}
               onChange={handleChange}
               required
-              placeholder="Enter your full name"
+              placeholder="Enter your first name"
+            />
+          </div>
+
+          <div className="form-group">
+            <label>Last Name</label>
+            <input
+              type="text"
+              name="lastName"
+              value={formData.lastName}
+              onChange={handleChange}
+              required
+              placeholder="Enter your last name"
             />
           </div>
 
@@ -96,6 +106,17 @@ const Register = () => {
           </div>
 
           <div className="form-group">
+            <label>Phone</label>
+            <input
+              type="tel"
+              name="phone"
+              value={formData.phone}
+              onChange={handleChange}
+              placeholder="Enter your phone number (optional)"
+            />
+          </div>
+
+          <div className="form-group">
             <label>Password</label>
             <input
               type="password"
@@ -103,7 +124,20 @@ const Register = () => {
               value={formData.password}
               onChange={handleChange}
               required
-              placeholder="Create a password"
+              minLength="6"
+              placeholder="Create a password (min 6 characters)"
+            />
+          </div>
+
+          <div className="form-group">
+            <label>Confirm Password</label>
+            <input
+              type="password"
+              name="confirmPassword"
+              value={formData.confirmPassword}
+              onChange={handleChange}
+              required
+              placeholder="Confirm your password"
             />
           </div>
 
